@@ -6,6 +6,9 @@ import {
   listAllPosts,
   listPostsByAuthor,
   listPostsByTag,
+  getPostById,
+  updatePost,
+  deletePost,
 } from '../services/posts.js'
 import { Post } from '../db/models/post.js'
 
@@ -123,5 +126,18 @@ describe('listing posts', () => {
   test('should be able to filer posts by tag', async () => {
     const posts = await listPostsByTag('tech')
     expect(posts.length).toBe(2)
+  })
+})
+
+describe('getting post by ID', () => {
+  test('should return the full post', async () => {
+    const post = await getPostById(createdSamplePosts[0]._id)
+    expect(post.title).toEqual('First Post')
+    expect(post.toObject()).toEqual(createdSamplePosts[0].toObject())
+  })
+
+  test('should fail is getting a post that does not exist', async () => {
+    const post = await getPostById('000000000000000000000000')
+    expect(post).toEqual(null)
   })
 })
