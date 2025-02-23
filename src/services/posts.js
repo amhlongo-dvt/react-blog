@@ -28,10 +28,17 @@ export async function getPostById(postId) {
   return await Post.findById(postId)
 }
 
-export async function updatePost(postId, { title, author, contents, tags }) {
+export async function updatePost(postId, { title, author, content, tags }) {
+  const updates = {}
+
+  if (title !== undefined) updates.title = title
+  if (author !== undefined) updates.author = author
+  if (content !== undefined) updates.content = content
+  if (tags !== undefined) updates.tags = tags
+
   return await Post.findOneAndUpdate(
     { _id: postId },
-    { $set: { title, author, content, tags } },
+    { $set: updates },
     { new: true },
   )
 }

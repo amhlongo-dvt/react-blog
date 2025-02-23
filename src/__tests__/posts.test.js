@@ -141,3 +141,40 @@ describe('getting post by ID', () => {
     expect(post).toEqual(null)
   })
 })
+
+describe('updating posts', () => {
+  test('should update the specified property', async () => {
+    await updatePost(createdSamplePosts[0]._id, {
+      author: 'Test Author',
+    })
+    const updatedPost = await Post.findById(createdSamplePosts[0]._id)
+    expect(updatedPost.author).toEqual('Test Author')
+  })
+
+  test('should not update other properties', async () => {
+    await updatePost(createdSamplePosts[0]._id, {
+      author: 'Test Author',
+    })
+    const updatedPost = await Post.findById(createdSamplePosts[0]._id)
+    expect(updatedPost.title).toEqual('First Post')
+  })
+
+  test('should update the UpdatedAt timestamp', async () => {
+    await updatePost(createdSamplePosts[0]._id, {
+      author: 'Test Author',
+    })
+
+    const updatedPost = await Post.findById(createdSamplePosts[0]._id)
+    expect(updatedPost.updatedAt.getTime()).toBeGreaterThan(
+      createdSamplePosts[0].updatedAt.getTime(),
+    )
+  })
+
+  test('should fail if the id does not exist', async () => {
+    const post = await updatePost('000000000000000000000000', {
+      author: 'Test Author',
+    })
+
+    expect(post).toBe(null)
+  })
+})
