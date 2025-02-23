@@ -178,3 +178,17 @@ describe('updating posts', () => {
     expect(post).toBe(null)
   })
 })
+
+describe('deleting posts', () => {
+  test('should remove the post from the database', async () => {
+    const result = await deletePost(createdSamplePosts[0]._id)
+    expect(result.deletedCount).toEqual(1)
+    const deletedPost = await Post.findById(createdSamplePosts[0]._id)
+    expect(deletedPost).toEqual(null)
+  })
+
+  test('should fail if post does not exist', async () => {
+    const result = await deletePost('000000000000000000000000')
+    expect(result.deletedCount).toEqual(0)
+  })
+})
