@@ -12,7 +12,8 @@
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:jsx-a11y/recommended",
-        "prettier"
+        "prettier",
+        "plugin:storybook/recommended"
     ],
     "settings": {
         "react": {
@@ -21,7 +22,10 @@
     },
     "overrides": [
         {
-            "files": ["*.js", "*.jsx"]
+            "files": [
+                "*.js",
+                "*.jsx"
+            ]
         }
     ]
 }
