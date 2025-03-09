@@ -17,7 +17,7 @@ let testUser = null
 let samplePosts = []
 
 beforeAll(async () => {
-  testUser = await createUser({ username: 'Andile', password: 'Mhlongo' })
+  testUser = await createUser({ username: 'Test', password: 'Mhlongo' })
   samplePosts = [
     {
       title: 'First Post',
