@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { describe, expect, test, beforeEach } from '@jest/globals'
+import { describe, expect, test, beforeEach, beforeAll } from '@jest/globals'
 
 import {
   createPost,
@@ -11,28 +11,50 @@ import {
   deletePost,
 } from '../services/posts.js'
 import { Post } from '../db/models/post.js'
+import { createUser } from '../services/users.js'
+
+let testUser = null
+let samplePosts = []
+
+beforeAll(async () => {
+  testUser = await createUser({ username: 'Andile', password: 'Mhlongo' })
+  samplePosts = [
+    {
+      title: 'First Post',
+      contents: 'This is the content of the first post',
+      author: testUser._id,
+      tags: ['tech', 'programming'],
+    },
+    {
+      title: 'Second Post',
+      contents: 'Content for the second post',
+      author: testUser._id,
+      tags: ['lifestyle', 'travel'],
+    },
+    {
+      title: 'Third Post',
+      contents: 'Content of the third post',
+      author: testUser._id,
+      tags: ['tech', 'tutorial'],
+    },
+  ]
+})
 
 describe('creating posts', () => {
   test('with all parameters should succeed', async () => {
-    const post = {
-      title: 'Test Post',
-      author: 'John Doe',
-      content: 'This is a test post',
-      tags: ['test', 'jest'],
-    }
+    const post = samplePosts.at(0)
     const createdPost = await createPost(post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
 
     const foundPost = await Post.findById(createdPost._id)
-    expect(foundPost.content).toEqual('This is a test post')
+    expect(foundPost.contents).toEqual('This is the content of the first post')
     expect(foundPost).toEqual(expect.objectContaining(post))
     expect(foundPost.createdAt).toBeInstanceOf(Date)
     expect(foundPost.updatedAt).toBeInstanceOf(Date)
   })
+
   test('with minimal parameters should succeed', async () => {
-    const post = {
-      title: 'Test Post',
-    }
+    const post = samplePosts.at(0)
     const createdPost = await createPost(post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
 
@@ -44,9 +66,9 @@ describe('creating posts', () => {
 
   test('should fail if title is not provided', async () => {
     const post = {
-      author: 'John Doe',
-      content: 'This is a test post',
-      tags: ['test', 'jest'],
+      content: 'Content for the second post',
+      author: testUser._id,
+      tags: ['lifestyle', 'travel'],
     }
     try {
       await createPost(post)
@@ -55,28 +77,21 @@ describe('creating posts', () => {
       expect(error.message).toContain('`title` is required')
     }
   })
-})
 
-const samplePosts = [
-  {
-    title: 'First Post',
-    content: 'This is the content of the first post',
-    author: 'John Doe',
-    tags: ['tech', 'programming'],
-  },
-  {
-    title: 'Second Post',
-    content: 'Content for the second post',
-    author: 'Jane Smith',
-    tags: ['lifestyle', 'travel'],
-  },
-  {
-    title: 'Third Post',
-    content: 'Content of the third post',
-    author: 'John Doe',
-    tags: ['tech', 'tutorial'],
-  },
-]
+  test('should fail if author is not provided', async () => {
+    const post = {
+      content: 'Content for the second post',
+      title: 'Hello Me',
+      tags: ['lifestyle', 'travel'],
+    }
+    try {
+      await createPost(post)
+    } catch (error) {
+      expect(error).toBeInstanceOf(mongoose.Error.ValidationError)
+      expect(error.message).toContain('`author` is required')
+    }
+  })
+})
 
 let createdSamplePosts = []
 
@@ -120,8 +135,8 @@ describe('listing posts', () => {
   })
 
   test('should be able to filter posts by author', async () => {
-    const posts = await listPostsByAuthor('John Doe')
-    expect(posts.length).toBe(2)
+    const posts = await listPostsByAuthor(testUser._id)
+    expect(posts.length).toBe(3)
   })
 
   test('should be able to filer posts by tag', async () => {
@@ -146,15 +161,15 @@ describe('getting post by ID', () => {
 describe('updating posts', () => {
   test('should update the specified property', async () => {
     await updatePost(createdSamplePosts[0]._id, {
-      author: 'Test Author',
+      author: testUser._id,
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
-    expect(updatedPost.author).toEqual('Test Author')
+    expect(updatedPost.author).toEqual(testUser._id)
   })
 
   test('should not update other properties', async () => {
     await updatePost(createdSamplePosts[0]._id, {
-      author: 'Test Author',
+      author: testUser._id,
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
     expect(updatedPost.title).toEqual('First Post')
@@ -162,7 +177,7 @@ describe('updating posts', () => {
 
   test('should update the UpdatedAt timestamp', async () => {
     await updatePost(createdSamplePosts[0]._id, {
-      author: 'Test Author',
+      author: testUser._id,
     })
 
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
@@ -173,7 +188,7 @@ describe('updating posts', () => {
 
   test('should fail if the id does not exist', async () => {
     const post = await updatePost('000000000000000000000000', {
-      author: 'Test Author',
+      author: testUser._id,
     })
 
     expect(post).toBe(null)
