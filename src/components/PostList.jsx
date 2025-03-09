@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Post } from './Post'
 
 export function PostList({ posts = [] }) {
+  console.log(posts)
+
   return (
     <div>
       {posts.map((post) => (

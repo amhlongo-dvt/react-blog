@@ -12,4 +12,4 @@ await post.save()
 
 const posts = await Post.find({})
 
-console.log(post)
+console.log(posts)

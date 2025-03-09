@@ -15,7 +15,8 @@
   "dependencies": {
     "@tanstack/react-query": "^5.12.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
