@@ -1,8 +1,8 @@
-import { Signup } from '../pages/Signup'
+import { Signup } from '../../pages/Signup'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: 'Components/SignUp',
+  title: 'Pages/SignUp',
   component: Signup,
 }
 
