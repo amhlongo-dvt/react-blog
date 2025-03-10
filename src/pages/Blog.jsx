@@ -5,6 +5,7 @@ import { PostFilter } from '../components/PostFilter'
 import { PostList } from '../components/PostList'
 import { PostSorting } from '../components/PostSorting'
 import { getPosts } from '../api/posts'
+import { Header } from '../components/Header'
 
 export function Blog() {
   const [author, setAuthor] = useState('')
@@ -18,6 +19,10 @@ export function Blog() {
   const posts = postsQuery.data ?? []
   return (
     <div style={{ padding: 16 }}>
+      <Header />
+      <br />
+      <hr />
+      <br />
       <CreatePost />
       <br />
       <hr />
