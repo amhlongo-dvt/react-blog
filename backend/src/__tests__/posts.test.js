@@ -43,7 +43,7 @@ beforeAll(async () => {
 describe('creating posts', () => {
   test('with all parameters should succeed', async () => {
     const post = samplePosts.at(0)
-    const createdPost = await createPost(post)
+    const createdPost = await createPost(testUser._id, post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
 
     const foundPost = await Post.findById(createdPost._id)
@@ -55,7 +55,7 @@ describe('creating posts', () => {
 
   test('with minimal parameters should succeed', async () => {
     const post = samplePosts.at(0)
-    const createdPost = await createPost(post)
+    const createdPost = await createPost(testUser._id, post)
     expect(createdPost._id).toBeInstanceOf(mongoose.Types.ObjectId)
 
     const foundPost = await Post.findById(createdPost._id)
@@ -71,7 +71,7 @@ describe('creating posts', () => {
       tags: ['lifestyle', 'travel'],
     }
     try {
-      await createPost(post)
+      await createPost(testUser._id, post)
     } catch (error) {
       expect(error).toBeInstanceOf(mongoose.Error.ValidationError)
       expect(error.message).toContain('`title` is required')
@@ -85,7 +85,7 @@ describe('creating posts', () => {
       tags: ['lifestyle', 'travel'],
     }
     try {
-      await createPost(post)
+      await createPost(testUser._id, post)
     } catch (error) {
       expect(error).toBeInstanceOf(mongoose.Error.ValidationError)
       expect(error.message).toContain('`author` is required')
@@ -160,7 +160,7 @@ describe('getting post by ID', () => {
 
 describe('updating posts', () => {
   test('should update the specified property', async () => {
-    await updatePost(createdSamplePosts[0]._id, {
+    await updatePost(testUser._id, createdSamplePosts[0]._id, {
       author: testUser._id,
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
@@ -168,7 +168,7 @@ describe('updating posts', () => {
   })
 
   test('should not update other properties', async () => {
-    await updatePost(createdSamplePosts[0]._id, {
+    await updatePost(testUser._id, createdSamplePosts[0]._id, {
       author: testUser._id,
     })
     const updatedPost = await Post.findById(createdSamplePosts[0]._id)
@@ -176,7 +176,7 @@ describe('updating posts', () => {
   })
 
   test('should update the UpdatedAt timestamp', async () => {
-    await updatePost(createdSamplePosts[0]._id, {
+    await updatePost(testUser._id, createdSamplePosts[0]._id, {
       author: testUser._id,
     })
 
@@ -187,7 +187,7 @@ describe('updating posts', () => {
   })
 
   test('should fail if the id does not exist', async () => {
-    const post = await updatePost('000000000000000000000000', {
+    const post = await updatePost(testUser._id, '000000000000000000000000', {
       author: testUser._id,
     })
 
@@ -197,14 +197,14 @@ describe('updating posts', () => {
 
 describe('deleting posts', () => {
   test('should remove the post from the database', async () => {
-    const result = await deletePost(createdSamplePosts[0]._id)
+    const result = await deletePost(testUser._id, createdSamplePosts[0]._id)
     expect(result.deletedCount).toEqual(1)
     const deletedPost = await Post.findById(createdSamplePosts[0]._id)
     expect(deletedPost).toEqual(null)
   })
 
   test('should fail if post does not exist', async () => {
-    const result = await deletePost('000000000000000000000000')
+    const result = await deletePost(testUser._id, '000000000000000000000000')
     expect(result.deletedCount).toEqual(0)
   })
 })
