@@ -1,42 +1,82 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+@layer reset, theme, base, layout, modules, utilities; 
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;    
   }
-  to {
-    transform: rotate(360deg);
+  body {
+    margin: unset;     
+  }
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;  
+  }
+  img,
+  picture,
+  svg,
+  canvas {
+    display: block;          
+    max-inline-size: 100%;   
+    height: auto;            
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+ }
+
+@layer theme {
+  :root {
+    --brand-color: #0063cc;
+    --background-color-1: #edf3fa;
+    --background-color-2: #c6cdd5;
+    --foreground-color-1: #39434d;
+    --foreground-color-2: #5a636d;
+    --font-main: "Helvetica Neue", "Nimbus Sans", Arial, sans-serif;
+    --font-heading: Georgia, sans-serif;
+    accent-color: var(--brand-color);
+    color-scheme: light;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@layer global {
+  :root {
+    font-size: clamp(1rem, 0.4rem + 0.8svw, 1.2rem);
   }
-}
+  body {
+    font-family: var(--font-main);
+    background-color: var(--background-color-1);
+    color: var(--foreground-color-2);
+  }
+  a:any-link {
+    color: var(--brand-color);
+  }
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 1.125rem;
+  }
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 3rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+  }
+ }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+ 
