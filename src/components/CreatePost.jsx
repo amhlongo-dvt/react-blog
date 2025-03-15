@@ -17,7 +17,13 @@ export function CreatePost() {
         e.preventDefault()
         createPostMutation.mutate()
     }
-    if (!token) return <div> Please login to create new posts</div>
+    if (!token)
+        return (
+            <div className='alert-container'>
+                {' '}
+                <p>Please login to create new posts</p>{' '}
+            </div>
+        )
 
     return (
         <form onSubmit={handleSubmit} className='form'>
@@ -35,7 +41,7 @@ export function CreatePost() {
                 onChange={(e) => setContents(e.target.value)}
             />
             <input
-                className='button'
+                className='button button--success'
                 type='submit'
                 value={createPostMutation.isPending ? 'Creating...' : 'Create'}
                 disabled={!title || createPostMutation.isPending}

@@ -9,7 +9,7 @@ export function User({ id }) {
     })
 
     const userInfo = userInfoQuery.data ?? {}
-    return <strong className='text'>{userInfo?.username ?? id}</strong>
+    return <span className='text text--bold'>{userInfo?.username ?? id}</span>
 }
 
 User.propTypes = {
