@@ -3,19 +3,19 @@ import PropTypes from 'prop-types'
 import { Post } from './Post'
 
 export function PostList({ posts = [] }) {
-  console.log(posts)
+    console.log(posts)
 
-  return (
-    <div>
-      {posts.map((post) => (
-        <Fragment key={post._id}>
-          <Post {...post} />
-          <hr />
-        </Fragment>
-      ))}
-    </div>
-  )
+    return (
+        <div className='post-container'>
+            {posts.map((post) => (
+                <Fragment key={post._id}>
+                    <Post {...post} />
+                    <hr className='divider' />
+                </Fragment>
+            ))}
+        </div>
+    )
 }
 PostList.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape(Post.propTypes)).isRequired,
+    posts: PropTypes.arrayOf(PropTypes.shape(Post.propTypes)).isRequired,
 }

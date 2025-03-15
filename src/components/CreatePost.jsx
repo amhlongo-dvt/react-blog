@@ -20,35 +20,29 @@ export function CreatePost() {
     if (!token) return <div> Please login to create new posts</div>
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='create-title'> Title: </label>
-                <input
-                    type='text'
-                    name='create-title'
-                    id='create-title'
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-            </div>
-            <br />
+        <form onSubmit={handleSubmit} className='form'>
+            <input
+                type='text'
+                className='input--text'
+                name='create-title'
+                id='create-title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
             <textarea
+                className='input--textarea'
                 value={contents}
                 onChange={(e) => setContents(e.target.value)}
             />
-            <br />
-            <br />
             <input
+                className='button'
                 type='submit'
                 value={createPostMutation.isPending ? 'Creating...' : 'Create'}
                 disabled={!title || createPostMutation.isPending}
             />
 
             {createPostMutation.isSuccess ? (
-                <>
-                    <br />
-                    Post created successfully
-                </>
+                <p className='text'>Post created successfully</p>
             ) : null}
         </form>
     )
