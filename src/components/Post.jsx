@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export function Post({ title, contents, author, _id, fullPost = false }) {
     return (
-        <article className='post'>
+        <article className='post ql-snow'>
             {fullPost ? (
                 <h3 className='post__title'>{title}</h3>
             ) : (
@@ -12,7 +12,15 @@ export function Post({ title, contents, author, _id, fullPost = false }) {
                     <h3 className='post__title'>{title}</h3>
                 </Link>
             )}
-            {fullPost && <div className='post__contents'>{contents}</div>}
+
+            {fullPost && (
+                <div className='post__content'>
+                    <div
+                        className='ql-editor'
+                        dangerouslySetInnerHTML={{ __html: contents }}
+                    />
+                </div>
+            )}
 
             {author && (
                 <p className='post__author text text--italic'>

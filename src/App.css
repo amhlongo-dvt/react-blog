@@ -196,7 +196,13 @@
   }
   .post__title{
     margin: unset;
-  };
+  }
+
+}
+
+.ql-editor{
+  padding: unset;
+  /* background-color: #2f5926; */
 }
 
 @layer{

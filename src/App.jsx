@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Signup } from './pages/Signup.jsx'
 import { AuthContextProvider } from './contexts/AuthContext.jsx'
 import { Login } from './pages/Login.jsx'
+import '../node_modules/react-quill/dist/quill.snow.css'
 import './App.css'
 import { ViewPost } from './pages/ViewPost.jsx'
 const queryClient = new QueryClient()
