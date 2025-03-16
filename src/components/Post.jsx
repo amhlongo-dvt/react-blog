@@ -27,6 +27,6 @@ Post.propTypes = {
     title: PropTypes.string.isRequired,
     contents: PropTypes.string,
     author: PropTypes.string,
-    _id: PropTypes.string,
+    _id: PropTypes.string.isRequired,
     fullPost: PropTypes.bool,
 }

@@ -5,6 +5,7 @@ import { Signup } from './pages/Signup.jsx'
 import { AuthContextProvider } from './contexts/AuthContext.jsx'
 import { Login } from './pages/Login.jsx'
 import './App.css'
+import { ViewPost } from './pages/ViewPost.jsx'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+    },
+
+    {
+        path: '/posts/:postId',
+        element: <ViewPost />,
     },
 ])
 

@@ -21,6 +21,8 @@ export const createPost = async (token, post) => {
 }
 
 export const getPostsById = async (postId) => {
+    console.log(`postId is ${postId}`)
+
     const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/posts/${postId}`,
     )

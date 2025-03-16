@@ -9,7 +9,7 @@ export function PostList({ posts = [] }) {
         <div className='post-container'>
             {posts.map((post) => (
                 <Fragment key={post._id}>
-                    <Post {...post} />
+                    <Post {...post} _id={post._id} />
                 </Fragment>
             ))}
         </div>
