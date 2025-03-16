@@ -19,21 +19,23 @@ export function Blog() {
     const posts = postsQuery.data ?? []
     return (
         <div className='blog-container'>
-            <Header />
-            <CreatePost />
-            <div className='sort-filter-container'>
-                <PostFilter
-                    field='author'
-                    value={author}
-                    onChange={(value) => setAuthor(value)}
-                />
-                <PostSorting
-                    fields={['createdAt', 'updatedAt']}
-                    value={sortBy}
-                    onChange={(value) => setSortBy(value)}
-                    orderValue={sortOrder}
-                    onOrderChange={(orderValue) => setSortOder(orderValue)}
-                />
+            <div className='sticky-container'>
+                <Header />
+                <CreatePost />
+                <div className='sort-filter-container'>
+                    <PostFilter
+                        field='author'
+                        value={author}
+                        onChange={(value) => setAuthor(value)}
+                    />
+                    <PostSorting
+                        fields={['createdAt', 'updatedAt']}
+                        value={sortBy}
+                        onChange={(value) => setSortBy(value)}
+                        orderValue={sortOrder}
+                        onOrderChange={(orderValue) => setSortOder(orderValue)}
+                    />
+                </div>
             </div>
             <PostList posts={posts} />
         </div>

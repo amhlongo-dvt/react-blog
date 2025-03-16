@@ -7,9 +7,9 @@ export function Post({ title, contents, author }) {
             <h3 className='post__title'>{title}</h3>
             <div className='post__contents'>{contents}</div>
             {author && (
-                <em className='post__author'>
+                <p className='post__author text text--italic'>
                     Written by <User id={author} />
-                </em>
+                </p>
             )}
         </article>
     )

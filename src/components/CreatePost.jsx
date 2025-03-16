@@ -21,7 +21,7 @@ export function CreatePost() {
         return (
             <div className='alert-container'>
                 {' '}
-                <p>Please login to create new posts</p>{' '}
+                <p className='text'>Please login to create new posts</p>{' '}
             </div>
         )
 
