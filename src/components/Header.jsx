@@ -23,11 +23,11 @@ export function Header() {
     }
     return (
         <div className='link-container'>
-            <Link className='link' to={'./login'}>
+            <Link className='link text-3xl text-blue-700' to={'./login'}>
                 Log In
             </Link>{' '}
             |{' '}
-            <Link className='link' to='/signup'>
+            <Link className='link text-3xl' to='/signup'>
                 SignUp
             </Link>
         </div>
