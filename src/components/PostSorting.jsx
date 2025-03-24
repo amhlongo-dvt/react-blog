@@ -8,7 +8,7 @@ export function PostSorting({
     onOrderChange,
 }) {
     return (
-        <div className='sort-container'>
+        <div className='sort-container flex'>
             <div className='drop-down-container'>
                 <select
                     className='drop-down'

@@ -6,6 +6,7 @@ import { PostList } from '../components/PostList'
 import { PostSorting } from '../components/PostSorting'
 import { getPosts } from '../api/posts'
 import { Header } from '../components/Header'
+import { CommandLineIcon } from '@heroicons/react/16/solid'
 
 export function Blog() {
     const [author, setAuthor] = useState('')
@@ -18,11 +19,17 @@ export function Blog() {
 
     const posts = postsQuery.data ?? []
     return (
-        <div className='blog-container'>
-            <div className='sticky-container'>
-                <Header />
+        <div className='blog-container mx-4'>
+            <div className='header-container'>
                 <CreatePost />
-                <div className='sort-filter-container'>
+                <div className='mt-4 flex items-center justify-between'>
+                    <div className='flex items-center'>
+                        <CommandLineIcon className='size-6' />
+                        <p className='logo-name text-xl font-bold text-gray-950'>
+                            Syntax
+                        </p>
+                    </div>
+
                     <PostFilter
                         field='author'
                         value={author}
@@ -35,6 +42,7 @@ export function Blog() {
                         orderValue={sortOrder}
                         onOrderChange={(orderValue) => setSortOder(orderValue)}
                     />
+                    <Header />
                 </div>
             </div>
             <PostList posts={posts} />
