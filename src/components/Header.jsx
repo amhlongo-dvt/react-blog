@@ -37,13 +37,13 @@ export function Header() {
     return (
         <div className='link-container flex gap-1'>
             <Link
-                className='link rounded-sm bg-gray-500 px-2 py-0.5 text-white'
+                className='link rounded-sm bg-gray-500 px-2 py-0.5 text-sm font-semibold text-white'
                 to={'./login'}
             >
                 Log In
             </Link>
             <Link
-                className='link rounded-sm bg-gray-700 px-2 py-0.5 text-white'
+                className='link rounded-sm bg-gray-700 px-2 py-0.5 text-sm font-bold text-white'
                 to='/signup'
             >
                 SignUp

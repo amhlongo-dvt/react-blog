@@ -19,11 +19,7 @@ export function ViewPost() {
         <div className='view-post-container'>
             <Header />
             <Link to='/'>Back to main page</Link>
-            {post ? (
-                <Post {...post} fullPost />
-            ) : (
-                `Post with the id ${postId} not found`
-            )}
+            {post ? <Post {...post} /> : `Post with the id ${postId} not found`}
         </div>
     )
 }
