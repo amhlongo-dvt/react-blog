@@ -4,14 +4,22 @@ import { createPost } from '../api/posts'
 import { useAuth } from '../contexts/AuthContext'
 import ReactQuill from 'react-quill'
 // import '../../node_modules/react-quill/dist/quill.snow.css'
-
+import { WithContext as ReactTags } from 'react-tag-input'
 export function CreatePost() {
-    const [title, setTitle] = useState('')
     const [token] = useAuth()
+    const [title, setTitle] = useState('')
     const [contents, setContents] = useState('')
+    const [tags, setTags] = useState([])
+
     const queryClient = useQueryClient()
     const createPostMutation = useMutation({
-        mutationFn: () => createPost(token, { title, contents }),
+        mutationFn: () => {
+            createPost(token, {
+                title,
+                contents,
+                tags: tags.map((tag) => tag.text),
+            })
+        },
         onSuccess: () => queryClient.invalidateQueries(['posts']),
     })
 
@@ -23,10 +31,19 @@ export function CreatePost() {
         ],
     }
 
+    const handleTagDelete = (i) => {
+        setTags(tags.filter((tag, index) => index !== i))
+    }
+
+    const handleTagAddition = (tag) => {
+        setTags([...tags, tag])
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         createPostMutation.mutate()
     }
+
     if (!token)
         return (
             <div className='alert-container'>
@@ -51,6 +68,23 @@ export function CreatePost() {
                 onChange={(e) => setContents(e)}
                 modules={modules}
             />
+
+            <ReactTags
+                tags={tags}
+                handleDelete={handleTagDelete}
+                handleAddition={handleTagAddition}
+                classNames={{
+                    tags: 'flex flex-wrap gap-2 mb-2',
+                    tag: 'bg-blue-500 text-white px-2 py-1 rounded-full text-sm',
+                    remove: 'ml-2 cursor-pointer hover:bg-blue-700 rounded-full p-1',
+                    suggestions:
+                        'absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg',
+                    suggestion: 'p-2 hover:bg-gray-200 cursor-pointer',
+                    activeSuggestion: 'bg-gray-300',
+                }}
+                placeholder='Add a tag'
+            />
+
             <input
                 className='button button--success'
                 type='submit'
