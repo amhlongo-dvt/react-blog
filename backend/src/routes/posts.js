@@ -11,16 +11,16 @@ import {
 
 export function postsRoutes(app) {
   app.get('/api/v1/posts', async (req, res) => {
-    const { sortBy, sortOrder, author, tag } = req.query
+    const { sortBy, sortOrder, author, tags } = req.query
     const options = { sortBy, sortOrder }
 
     try {
-      if (author && tag) {
+      if (author && tags) {
         return res.status(400).json({
           error: 'query by either author or tag, not both',
         })
-      } else if (tag) {
-        return res.json(await listPostsByTag(tag, options))
+      } else if (tags) {
+        return res.json(await listPostsByTag(tags, options))
       } else if (author) {
         return res.json(await listPostsByAuthor(author, options))
       } else {

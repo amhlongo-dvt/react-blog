@@ -2,7 +2,17 @@ import PropTypes from 'prop-types'
 import { User } from './User'
 import { Link } from 'react-router-dom'
 
-export function Post({ title, contents, author, _id, createdAt }) {
+import { useState } from 'react'
+
+export function Post({
+    title,
+    contents,
+    author,
+    _id,
+    createdAt,
+    tags,
+    setTags,
+}) {
     const formatDate = () => {
         const date = new Date(createdAt)
         return date.toLocaleDateString('en-GB', {
@@ -12,13 +22,17 @@ export function Post({ title, contents, author, _id, createdAt }) {
         })
     }
 
+    const [isTagEnabled, setIsTagEnabled] = useState({})
+
+    const toggleTag = (tag) => {
+        setIsTagEnabled((prev) => ({
+            ...prev,
+            [tag]: !prev[tag],
+        }))
+    }
+
     return (
         <article className='grid justify-between rounded-xl border-1 border-gray-500 px-3'>
-            {/* {fullPost ? (
-                <Link to={`/posts/${_id}`}>
-                    <h3 className='post__title'>{title}</h3>
-                </Link>
-            ) : ( */}
             <div className='pt-4'>
                 <h3 className='post__title line-clamp-2 font-bold text-gray-900'>
                     {title}
@@ -31,7 +45,29 @@ export function Post({ title, contents, author, _id, createdAt }) {
                     dangerouslySetInnerHTML={{ __html: contents }}
                 />
             </div>
-
+            <div className='mt-2 flex gap-0.5'>
+                {tags.map((tag) => (
+                    <button
+                        key={tag}
+                        className={` ${
+                            isTagEnabled[tag] ? 'bg-gray-300' : 'bg-gray-700'
+                        } cursor-pointer rounded-sm px-2 py-0.5 text-xs text-amber-50 hover:bg-gray-500`}
+                        onClick={() => {
+                            if (isTagEnabled[tag]) {
+                                setTags('')
+                                toggleTag(tag)
+                                console.log(`tag:${tag} clicked`)
+                            } else {
+                                setTags(tag)
+                                setIsTagEnabled(true)
+                                toggleTag(tag)
+                            }
+                        }}
+                    >
+                        {tag}
+                    </button>
+                ))}
+            </div>
             <div className='flex items-center justify-between pt-2 pb-4'>
                 <div>
                     <p className='post__author text text--italic text-sm font-bold text-gray-900'>
@@ -41,7 +77,7 @@ export function Post({ title, contents, author, _id, createdAt }) {
                 </div>
                 <Link
                     to={`/posts/${_id}`}
-                    className='cursor-pointer rounded-sm bg-gray-800 px-2 py-0.5 text-sm text-gray-50 hover:bg-gray-500'
+                    className='cursor-pointer rounded-sm bg-gray-800 px-2 py-0.5 text-sm text-gray-50 hover:bg-gray-600'
                 >
                     <h3 className='post__cta'>Read</h3>
                 </Link>
@@ -56,4 +92,6 @@ Post.propTypes = {
     author: PropTypes.string,
     _id: PropTypes.string.isRequired,
     createdAt: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    setTags: PropTypes.func,
 }

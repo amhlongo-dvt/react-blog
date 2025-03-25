@@ -12,9 +12,10 @@ export function Blog() {
     const [author, setAuthor] = useState('')
     const [sortBy, setSortBy] = useState('createdAt')
     const [sortOrder, setSortOder] = useState('descending')
+    const [tags, setTags] = useState('')
     const postsQuery = useQuery({
-        queryKey: ['posts', { author, sortBy, sortOrder }],
-        queryFn: () => getPosts({ author, sortBy, sortOrder }),
+        queryKey: ['posts', { author, sortBy, sortOrder, tags }],
+        queryFn: () => getPosts({ author, sortBy, sortOrder, tags }),
     })
 
     const posts = postsQuery.data ?? []
@@ -45,7 +46,7 @@ export function Blog() {
                     <Header />
                 </div>
             </div>
-            <PostList posts={posts} />
+            <PostList posts={posts} setTags={(tag) => setTags(tag)} />
         </div>
     )
 }
