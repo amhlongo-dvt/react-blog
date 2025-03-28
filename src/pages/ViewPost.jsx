@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import PropTypes from 'prop-types'
 import { Link, useParams } from 'react-router-dom'
-import { Header } from '../components/Header'
-import { Post } from '../components/Post'
 import { getPostsById } from '../api/posts'
+import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import { HeroSection } from '../components/HeroSection'
 
 export function ViewPost() {
     const { postId } = useParams()
@@ -16,14 +15,16 @@ export function ViewPost() {
     console.log(post)
 
     return (
-        <div className='view-post-container'>
-            <Header />
-            <Link to='/'>Back to main page</Link>
-            {post ? <Post {...post} /> : `Post with the id ${postId} not found`}
+        <div className='mx-4'>
+            <Link to='/' className='my-4 flex w-max items-center bg-amber-400'>
+                <ArrowLeftIcon className='size-5' />
+                Back
+            </Link>
+            <div className='flex flex-col items-center'>
+                <div className='view-post-container flex w-full max-w-2xl flex-col items-center'>
+                    {post && <HeroSection title={post.title} />}
+                </div>
+            </div>
         </div>
     )
-}
-
-ViewPost.propTypes = {
-    postId: PropTypes.string.isRequired,
 }
