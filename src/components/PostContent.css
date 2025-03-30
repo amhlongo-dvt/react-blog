@@ -1,0 +1,23 @@
+/* Fixes for Quill content */
+.ql-editor {
+    padding: 0;
+    font-family: inherit;
+  }
+  
+  .ql-editor img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+  
+  .ql-editor iframe {
+    width: 100%;
+    min-height: 400px;
+  }
+  
+  .ql-editor ul, .ql-editor ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+  
