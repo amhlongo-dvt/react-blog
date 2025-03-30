@@ -16,7 +16,7 @@ export function ViewPost() {
 
     return (
         <div className='mx-4'>
-            <Link to='/' className='my-4 flex w-max items-center bg-amber-400'>
+            <Link to='/' className='my-4 flex w-max items-center'>
                 <ArrowLeftIcon className='size-5' />
                 Back
             </Link>

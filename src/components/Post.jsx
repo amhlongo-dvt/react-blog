@@ -32,7 +32,7 @@ export function Post({
     }
 
     return (
-        <article className='grid justify-between rounded-xl border-1 border-gray-500 px-3'>
+        <article className='grid justify-between rounded-xl border-2 border-gray-900 px-3'>
             <div className='pt-4'>
                 <h3 className='post__title line-clamp-2 font-bold text-gray-900'>
                     {title}
@@ -50,8 +50,8 @@ export function Post({
                     <button
                         key={tag}
                         className={` ${
-                            isTagEnabled[tag] ? 'bg-gray-300' : 'bg-gray-700'
-                        } cursor-pointer rounded-sm px-2 py-0.5 text-xs text-amber-50 hover:bg-gray-500`}
+                            isTagEnabled[tag] ? 'bg-gray-700' : 'bg-gray-500'
+                        } cursor-pointer rounded-full px-2 py-1 text-sm font-semibold text-amber-50 hover:bg-gray-200 hover:text-gray-950`}
                         onClick={() => {
                             if (isTagEnabled[tag]) {
                                 setTags('')
@@ -77,7 +77,7 @@ export function Post({
                 </div>
                 <Link
                     to={`/posts/${_id}`}
-                    className='cursor-pointer rounded-sm bg-gray-800 px-2 py-0.5 text-sm text-gray-50 hover:bg-gray-600'
+                    className='cursor-pointer rounded-sm bg-gray-800 px-4 py-1 text-base font-medium text-gray-50 hover:bg-gray-600'
                 >
                     <h3 className='post__cta'>Read</h3>
                 </Link>
