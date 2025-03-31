@@ -3,13 +3,13 @@ import { useState } from 'react'
 import { createPost } from '../api/posts'
 import { useAuth } from '../contexts/AuthContext'
 import ReactQuill from 'react-quill'
-// import '../../node_modules/react-quill/dist/quill.snow.css'
 import { WithContext as ReactTags } from 'react-tag-input'
 export function CreatePost() {
     const [token] = useAuth()
     const [title, setTitle] = useState('')
     const [contents, setContents] = useState('')
     const [tags, setTags] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(true)
 
     const queryClient = useQueryClient()
     const createPostMutation = useMutation({
@@ -42,6 +42,10 @@ export function CreatePost() {
     const handleSubmit = (e) => {
         e.preventDefault()
         createPostMutation.mutate()
+        setTitle('')
+        setTags([])
+        setContents('')
+        setIsModalOpen(false)
     }
 
     if (!token)
@@ -53,48 +57,87 @@ export function CreatePost() {
         )
 
     return (
-        <form onSubmit={handleSubmit} className='form'>
-            <input
-                type='text'
-                className='input--text'
-                name='create-title'
-                id='create-title'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
+        <div className='flex items-center justify-center'>
+            {isModalOpen && (
+                <div>
+                    <div>
+                        {/* Background Overlay */}
+                        <div>
+                            <div></div>
+                        </div>
 
-            <ReactQuill
-                value={contents}
-                onChange={(e) => setContents(e)}
-                modules={modules}
-            />
+                        {/*Modal Content*/}
+                        <span>&#8203;</span>
+                        <div>
+                            <h3>Create Blog Post</h3>
+                            <form onSubmit={handleSubmit} className='form'>
+                                <div>
+                                    <label htmlFor='title'>Title</label>
+                                    <input
+                                        type='text'
+                                        className='input--text'
+                                        name='create-title'
+                                        id='create-title'
+                                        value={title}
+                                        onChange={(e) =>
+                                            setTitle(e.target.value)
+                                        }
+                                    />
+                                </div>
 
-            <ReactTags
-                tags={tags}
-                handleDelete={handleTagDelete}
-                handleAddition={handleTagAddition}
-                classNames={{
-                    tags: 'flex flex-wrap gap-2 mb-2',
-                    tag: 'bg-blue-500 text-white px-2 py-1 rounded-full text-sm',
-                    remove: 'ml-2 cursor-pointer hover:bg-blue-700 rounded-full p-1',
-                    suggestions:
-                        'absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg',
-                    suggestion: 'p-2 hover:bg-gray-200 cursor-pointer',
-                    activeSuggestion: 'bg-gray-300',
-                }}
-                placeholder='Add a tag'
-            />
+                                <div>
+                                    <label htmlFor='tags'>Tags</label>
+                                    <ReactTags
+                                        tags={tags}
+                                        handleDelete={handleTagDelete}
+                                        handleAddition={handleTagAddition}
+                                        classNames={{}}
+                                        placeholder='Add a tag'
+                                    />
+                                </div>
 
-            <input
-                className='button button--success'
-                type='submit'
-                value={createPostMutation.isPending ? 'Creating...' : 'Create'}
-                disabled={!title || createPostMutation.isPending}
-            />
+                                <div>
+                                    <label htmlFor='content'>Content</label>
+                                    <ReactQuill
+                                        theme='snow'
+                                        value={contents}
+                                        onChange={(e) => setContents(e)}
+                                        modules={modules}
+                                    />
+                                </div>
 
-            {createPostMutation.isSuccess ? (
-                <p className='text'>Post created successfully</p>
-            ) : null}
-        </form>
+                                <div>
+                                    <input
+                                        className='button button--success'
+                                        type='submit'
+                                        value={
+                                            createPostMutation.isPending
+                                                ? 'Creating...'
+                                                : 'Create'
+                                        }
+                                        disabled={
+                                            !title ||
+                                            createPostMutation.isPending
+                                        }
+                                    />
+                                    <input
+                                        className='button button--success'
+                                        type='submit'
+                                        value={'Cancel'}
+                                        disabled={createPostMutation.isPending}
+                                    />
+                                </div>
+
+                                {createPostMutation.isSuccess ? (
+                                    <p className='text'>
+                                        Post created successfully
+                                    </p>
+                                ) : null}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
     )
 }
