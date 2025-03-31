@@ -12,6 +12,7 @@ export function Blog() {
     const [author, setAuthor] = useState('')
     const [sortBy, setSortBy] = useState('createdAt')
     const [sortOrder, setSortOder] = useState('descending')
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [tags, setTags] = useState('')
     const postsQuery = useQuery({
         queryKey: ['posts', { author, sortBy, sortOrder, tags }],
@@ -22,7 +23,10 @@ export function Blog() {
     return (
         <div className='blog-container mx-4'>
             <div className='header-container'>
-                <CreatePost />
+                <CreatePost
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                />
                 <div className='mt-4 flex items-center justify-between'>
                     <div className='flex items-center'>
                         <CommandLineIcon className='size-6' />
@@ -43,7 +47,7 @@ export function Blog() {
                         orderValue={sortOrder}
                         onOrderChange={(orderValue) => setSortOder(orderValue)}
                     />
-                    <Header />
+                    <Header setIsModalOpen={setIsModalOpen} />
                 </div>
             </div>
             <PostList posts={posts} setTags={(tag) => setTags(tag)} />
