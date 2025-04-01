@@ -7,12 +7,16 @@ import { PostSorting } from '../components/PostSorting'
 import { getPosts } from '../api/posts'
 import { Header } from '../components/Header'
 import { CommandLineIcon } from '@heroicons/react/16/solid'
+import { Login } from './Login'
+import { Signup } from './Signup'
 
 export function Blog() {
     const [author, setAuthor] = useState('')
     const [sortBy, setSortBy] = useState('createdAt')
     const [sortOrder, setSortOder] = useState('descending')
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
     const [tags, setTags] = useState('')
     const postsQuery = useQuery({
         queryKey: ['posts', { author, sortBy, sortOrder, tags }],
@@ -26,6 +30,14 @@ export function Blog() {
                 <CreatePost
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
+                />
+                <Login
+                    isLoginModalOpen={isLoginModalOpen}
+                    setIsLoginModalOpen={setIsLoginModalOpen}
+                />
+                <Signup
+                    isSignUpModalOpen={isSignUpModalOpen}
+                    setIsSignUpModalOpen={setIsSignUpModalOpen}
                 />
                 <div className='mt-4 flex items-center justify-between'>
                     <div className='flex items-center'>
@@ -47,7 +59,11 @@ export function Blog() {
                         orderValue={sortOrder}
                         onOrderChange={(orderValue) => setSortOder(orderValue)}
                     />
-                    <Header setIsModalOpen={setIsModalOpen} />
+                    <Header
+                        setIsModalOpen={setIsModalOpen}
+                        setIsLoginModalOpen={setIsLoginModalOpen}
+                        setIsSignUpModalOpen={setIsSignUpModalOpen}
+                    />
                 </div>
             </div>
             <PostList posts={posts} setTags={(tag) => setTags(tag)} />

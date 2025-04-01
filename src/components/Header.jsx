@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { jwtDecode } from 'jwt-decode'
 import { User } from './User'
 import { useState } from 'react'
 import { PencilIcon } from '@heroicons/react/16/solid'
 import PropTypes from 'prop-types'
-export function Header({ setIsModalOpen }) {
+export function Header({
+    setIsModalOpen,
+    setIsLoginModalOpen,
+    setIsSignUpModalOpen,
+}) {
     const [token, setToken] = useAuth()
     const [toggleLogout, setToggleLogout] = useState(false)
     if (token) {
@@ -50,22 +53,28 @@ export function Header({ setIsModalOpen }) {
     }
     return (
         <div className='link-container flex gap-1'>
-            <Link
+            <button
                 className='link rounded-sm bg-gray-500 px-2 py-0.5 text-sm font-semibold text-white'
-                to={'./login'}
+                onClick={() => {
+                    setIsLoginModalOpen(true)
+                }}
             >
                 Log In
-            </Link>
-            <Link
+            </button>
+            <button
                 className='link rounded-sm bg-gray-700 px-2 py-0.5 text-sm font-bold text-white'
-                to='/signup'
+                onClick={() => {
+                    setIsSignUpModalOpen(true)
+                }}
             >
                 SignUp
-            </Link>
+            </button>
         </div>
     )
 }
 
 Header.propTypes = {
     setIsModalOpen: PropTypes.func,
+    setIsLoginModalOpen: PropTypes.func,
+    setIsSignUpModalOpen: PropTypes.func,
 }
