@@ -32,7 +32,7 @@ export function Post({
     }
 
     return (
-        <article className='grid justify-between rounded-xl border-2 border-gray-900 px-3'>
+        <article className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'>
             <div className='pt-4'>
                 <h3 className='post__title line-clamp-2 font-bold text-gray-900'>
                     {title}
