@@ -4,6 +4,8 @@ import { User } from './User'
 import { useState } from 'react'
 import { CommandLineIcon, PlusIcon } from '@heroicons/react/16/solid'
 import PropTypes from 'prop-types'
+import { Button } from '@/components/ui/button'
+
 export function Header({
     setIsModalOpen,
     setIsLoginModalOpen,
@@ -41,12 +43,12 @@ export function Header({
                     </button>
 
                     {toggleLogout && (
-                        <button
+                        <Button
                             className='button button--danger cursor-pointer rounded-sm bg-red-700 px-4 py-2 text-sm font-semibold text-white'
                             onClick={() => setToken(null)}
                         >
-                            Logout
-                        </button>
+                            Log Out
+                        </Button>
                     )}
                 </div>
             </div>
@@ -61,22 +63,27 @@ export function Header({
                 </p>
             </div>
             <div className='link-container flex gap-1'>
-                <button
-                    className='link rounded-sm bg-gray-500 px-4 py-2 text-sm font-medium text-white'
+                <Button
+                    // className='link rounded-sm bg-gray-500 px-4 py-2 text-sm font-medium text-white'
+
                     onClick={() => {
                         setIsLoginModalOpen(true)
                     }}
+                    variant='ghost'
+                    size='sm'
                 >
                     Log In
-                </button>
-                <button
-                    className='link rounded-sm bg-gray-700 px-4 py-2 text-sm font-medium text-white'
+                </Button>
+
+                <Button
+                    // className='link rounded-sm bg-gray-700 px-4 py-2 text-sm font-medium text-white'
                     onClick={() => {
                         setIsSignUpModalOpen(true)
                     }}
+                    size='sm'
                 >
-                    SignUp
-                </button>
+                    Sign Up
+                </Button>
             </div>
         </div>
     )
