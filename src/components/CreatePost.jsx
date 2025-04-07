@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { X } from 'lucide-react' // For tag close icon
-
+import './CreatePost.css'
 // Shadcn UI components
 import {
     Dialog,
