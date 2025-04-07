@@ -43,7 +43,7 @@ export function Post({
 
     return (
         <Card
-            className='p-4'
+            className='h-48 w-full p-4'
             //  className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'
         >
             <CardTitle className=''>

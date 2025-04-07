@@ -6,7 +6,7 @@ export function PostList({ posts = [], setTags }) {
     console.log(posts)
 
     return (
-        <div className='post-container mt-4 grid grid-cols-1 gap-2 px-4'>
+        <div className='post-container -z-50 mt-6 grid grid-cols-1 gap-2 px-4 md:grid-cols-2 lg:grid-cols-3'>
             {posts.map((post, index) => (
                 <motion.div
                     key={post._id}
