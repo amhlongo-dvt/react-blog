@@ -47,7 +47,7 @@ export function Post({
             //  className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'
         >
             <CardTitle className=''>
-                <h3 className='post__title font-bold text-gray-900'>{title}</h3>
+                <h3 className='post__title font-bold'>{title}</h3>
             </CardTitle>
 
             {/* <div className='overflow-hidden pt-2'> */}

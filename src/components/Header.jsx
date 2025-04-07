@@ -13,6 +13,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ModeToggle } from './DarkModeToggle'
 
 export function Header({
     setIsModalOpen,
@@ -89,6 +90,7 @@ export function Header({
                 <Button size='sm' onClick={() => setIsSignUpModalOpen(true)}>
                     Sign Up
                 </Button>
+                <ModeToggle />
             </div>
         </header>
     )

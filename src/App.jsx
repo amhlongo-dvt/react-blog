@@ -7,6 +7,7 @@ import { Login } from './pages/Login.jsx'
 import '../node_modules/react-quill/dist/quill.snow.css'
 import './App.css'
 import { ViewPost } from './pages/ViewPost.jsx'
+import { ThemeProvider } from './contexts/theme-provider.jsx'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -31,10 +32,12 @@ const router = createBrowserRouter([
 
 export function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <AuthContextProvider>
-                <RouterProvider router={router} />
-            </AuthContextProvider>
-        </QueryClientProvider>
+        <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+            <QueryClientProvider client={queryClient}>
+                <AuthContextProvider>
+                    <RouterProvider router={router} />
+                </AuthContextProvider>
+            </QueryClientProvider>
+        </ThemeProvider>
     )
 }
