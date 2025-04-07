@@ -43,7 +43,7 @@ export function Post({
 
     return (
         <Card
-            className='h-48 w-full p-4'
+            className='h-full w-full p-4'
             //  className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'
         >
             <CardTitle className=''>
@@ -52,7 +52,7 @@ export function Post({
 
             {/* <div className='overflow-hidden pt-2'> */}
             <CardDescription
-                className='line-clamp-3'
+                className='line-clamp-2 text-sm'
                 dangerouslySetInnerHTML={{ __html: contents }}
             />
             {/* </div> */}
@@ -60,9 +60,8 @@ export function Post({
                 {tags.map((tag) => (
                     <Badge
                         key={tag}
-                        // className={` ${
-                        //     isTagEnabled[tag] ? 'bg-gray-700' : 'bg-gray-500'
-                        // } cursor-pointer rounded-full px-2 py-1 text-sm font-semibold text-amber-50 hover:bg-gray-200 hover:text-gray-950`}
+                        className={`hover:bg-accent-foreground hover:text-accent cursor-pointer`}
+                        variant={`${isTagEnabled[tag] ? '' : 'outline'}`}
                         onClick={() => {
                             if (isTagEnabled[tag]) {
                                 setTags('')
