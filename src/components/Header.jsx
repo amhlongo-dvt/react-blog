@@ -1,10 +1,18 @@
 import { useAuth } from '../contexts/AuthContext'
 import { jwtDecode } from 'jwt-decode'
 import { User } from './User'
-import { useState } from 'react'
-import { CommandLineIcon, PlusIcon } from '@heroicons/react/16/solid'
+import { CommandIcon, PlusIcon } from 'lucide-react'
 import PropTypes from 'prop-types'
+
+// Shadcn UI components
 import { Button } from '@/components/ui/button'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 export function Header({
     setIsModalOpen,
@@ -12,80 +20,77 @@ export function Header({
     setIsSignUpModalOpen,
 }) {
     const [token, setToken] = useAuth()
-    const [toggleLogout, setToggleLogout] = useState(false)
+
     if (token) {
         const { sub } = jwtDecode(token)
-        return (
-            <div className='mt-4 flex items-center justify-between rounded-lg'>
-                <div className='flex items-center'>
-                    <CommandLineIcon className='size-6' />
-                    <p className='logo-name text-xl font-bold text-gray-950'>
-                        Syntax
-                    </p>
-                </div>
-                <div className='header-container flex items-center gap-2'>
-                    <button
-                        onClick={() => setIsModalOpen(true)}
-                        className='fixed right-6 bottom-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-amber-700'
-                    >
-                        <PlusIcon className='size-6 text-yellow-50' />
-                        {/* <p className='text-amber-50'>Post</p> */}
-                    </button>
-                    <button
-                        className='flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-300'
-                        onClick={() => {
-                            setToggleLogout(!toggleLogout)
-                        }}
-                    >
-                        <span className='font-medium text-gray-600'>
-                            <User id={sub} oneLetter />
-                        </span>
-                    </button>
 
-                    {toggleLogout && (
-                        <Button
-                            className='button button--danger cursor-pointer rounded-sm bg-red-700 px-4 py-2 text-sm font-semibold text-white'
-                            onClick={() => setToken(null)}
-                        >
-                            Log Out
-                        </Button>
-                    )}
+        return (
+            <header className='flex items-center justify-between pt-4'>
+                <div className='flex items-center gap-2'>
+                    <CommandIcon className='h-5 w-5' />
+                    <h1 className='text-xl font-bold'>Syntax</h1>
                 </div>
-            </div>
+
+                <div className='flex items-center gap-2'>
+                    {/* Fixed Dropdown Menu */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            {/* Simple button instead of asChild for compatibility */}
+                            <button className='flex h-8 w-8 items-center justify-center rounded-full bg-gray-300'>
+                                <User id={sub} oneLetter />
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align='end'>
+                            <div className='px-2 py-1.5'>
+                                <p className='text-sm font-medium'>
+                                    <User id={sub} />
+                                </p>
+                            </div>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                                onClick={() => setToken(null)}
+                                className='text-destructive focus:text-destructive'
+                            >
+                                Log Out
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+
+                {/* Floating Action Button */}
+                <Button
+                    onClick={() => setIsModalOpen(true)}
+                    className='fixed right-6 bottom-6 z-50 h-12 w-12 rounded-full bg-amber-700 p-0 shadow-lg hover:bg-amber-800'
+                    size='icon'
+                >
+                    <PlusIcon className='h-12 w-12' />
+                    <span className='sr-only'>Create new post</span>
+                </Button>
+            </header>
         )
     }
-    return (
-        <div className='mt-4 flex items-center justify-between rounded-lg'>
-            <div className='flex items-center'>
-                <CommandLineIcon className='size-6' />
-                <p className='logo-name text-xl font-bold text-gray-950'>
-                    Syntax
-                </p>
-            </div>
-            <div className='link-container flex gap-1'>
-                <Button
-                    // className='link rounded-sm bg-gray-500 px-4 py-2 text-sm font-medium text-white'
 
-                    onClick={() => {
-                        setIsLoginModalOpen(true)
-                    }}
+    return (
+        <header className='flex items-center justify-between pt-4'>
+            <div className='flex items-center gap-2'>
+                <CommandIcon className='h-5 w-5' />
+                <h1 className='text-xl font-bold'>Syntax</h1>
+            </div>
+
+            <div className='flex items-center gap-2'>
+                <Button
                     variant='ghost'
                     size='sm'
+                    onClick={() => setIsLoginModalOpen(true)}
                 >
                     Log In
                 </Button>
 
-                <Button
-                    // className='link rounded-sm bg-gray-700 px-4 py-2 text-sm font-medium text-white'
-                    onClick={() => {
-                        setIsSignUpModalOpen(true)
-                    }}
-                    size='sm'
-                >
+                <Button size='sm' onClick={() => setIsSignUpModalOpen(true)}>
                     Sign Up
                 </Button>
             </div>
-        </div>
+        </header>
     )
 }
 
