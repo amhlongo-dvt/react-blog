@@ -25,8 +25,9 @@ export function Blog() {
 
     const posts = postsQuery.data ?? []
     return (
-        <div className='blog-container'>
-            <div className='header-container sticky top-0 bg-gray-100 px-4'>
+        <div className='blog-container flex h-screen flex-col overflow-hidden'>
+            {/* Header area stays fixed at the top */}
+            <div className='header-container sticky top-0 flex-shrink-0 bg-gray-100 px-4'>
                 <CreatePost
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
@@ -39,26 +40,23 @@ export function Blog() {
                     isSignUpModalOpen={isSignUpModalOpen}
                     setIsSignUpModalOpen={setIsSignUpModalOpen}
                 />
-
-                {/* <PostFilter
-                        field='author'
-                        value={author}
-                        onChange={(value) => setAuthor(value)}
-                    /> */}
-                {/* <PostSorting
-                        fields={['createdAt', 'updatedAt']}
-                        value={sortBy}
-                        onChange={(value) => setSortBy(value)}
-                        orderValue={sortOrder}
-                        onOrderChange={(orderValue) => setSortOder(orderValue)}
-                    /> */}
                 <Header
                     setIsModalOpen={setIsModalOpen}
                     setIsLoginModalOpen={setIsLoginModalOpen}
                     setIsSignUpModalOpen={setIsSignUpModalOpen}
                 />
             </div>
-            <PostList posts={posts} setTags={(tag) => setTags(tag)} />
+
+            {/* PostList occupies the rest of the space and no scrolling is enabled */}
+            <div className='flex-1 overflow-hidden'>
+                <PostList
+                    posts={posts}
+                    setTags={(tag) => setTags(tag)}
+                    setIsLoginModalOpen={setIsLoginModalOpen}
+                    setIsSignUpModalOpen={setIsSignUpModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                />
+            </div>
         </div>
     )
 }

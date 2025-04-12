@@ -61,7 +61,7 @@ export function Header({
                 {/* Floating Action Button */}
                 <Button
                     onClick={() => setIsModalOpen(true)}
-                    className='fixed right-6 bottom-6 z-50 h-12 w-12 rounded-full bg-amber-700 p-0 shadow-lg hover:bg-amber-800'
+                    className='fixed right-6 bottom-6 z-50 h-12 w-12 rounded-full bg-amber-700 p-0 shadow-lg hover:bg-amber-800 md:hidden'
                     size='icon'
                 >
                     <PlusIcon className='h-12 w-12' />
@@ -79,17 +79,22 @@ export function Header({
             </div>
 
             <div className='flex items-center gap-2'>
-                <Button
-                    variant='ghost'
-                    size='sm'
-                    onClick={() => setIsLoginModalOpen(true)}
-                >
-                    Log In
-                </Button>
+                <div className='md:hidden'>
+                    <Button
+                        variant='ghost'
+                        size='sm'
+                        onClick={() => setIsLoginModalOpen(true)}
+                    >
+                        Log In
+                    </Button>
 
-                <Button size='sm' onClick={() => setIsSignUpModalOpen(true)}>
-                    Sign Up
-                </Button>
+                    <Button
+                        size='sm'
+                        onClick={() => setIsSignUpModalOpen(true)}
+                    >
+                        Sign Up
+                    </Button>
+                </div>
                 <ModeToggle />
             </div>
         </header>
