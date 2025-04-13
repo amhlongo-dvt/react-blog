@@ -32,8 +32,24 @@ import {
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 
+const ACCEPTED_IMAGE_TYPES = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/webp',
+]
+const MAX_FILE_SIZE = 1024 * 1024
+
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
+    picture: z
+        .instanceof(File, { message: 'Picture is required' })
+        .refine((file) => file?.size <= MAX_FILE_SIZE, 'Max file size is 1MB')
+        .refine(
+            (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+            'jpg, .jpeg, .png and .webp files are accepted',
+        )
+        .nullable(),
 })
 
 export function CreatePostForm({
@@ -45,6 +61,7 @@ export function CreatePostForm({
     const [contents, setContents] = useState('')
     const [tags, setTags] = useState([])
     const [tagInput, setTagInput] = useState('')
+    const [previewUrl, setPreviewUrl] = useState(null)
 
     const queryClient = useQueryClient()
 
@@ -52,6 +69,7 @@ export function CreatePostForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: '',
+            picture: null,
         },
     })
 
@@ -62,6 +80,20 @@ export function CreatePostForm({
             [{ list: 'ordered' }, { list: 'bullet' }],
             ['bold', 'italic', 'underline'],
         ],
+    }
+
+    const handleFileChange = (event) => {
+        const file = event.target.files?.[0]
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl)
+            setPreviewUrl(null)
+        }
+
+        if (file) {
+            setPreviewUrl(URL.createObjectURL(file))
+        } else {
+            console.log('file not uploaded')
+        }
     }
 
     const createPostMutation = useMutation({
@@ -117,6 +149,8 @@ export function CreatePostForm({
     }
 
     function onSubmit(values) {
+        console.log('Form submitted with:', values)
+
         createPostMutation.mutate(values)
     }
 
@@ -177,6 +211,31 @@ export function CreatePostForm({
                         </FormItem>
                     )}
                 />
+                <FormField
+                    control={form.control}
+                    name='picture'
+                    render={({ field: { onBlur, name, ref } }) => (
+                        <FormItem>
+                            <FormLabel>Cover Image</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type='file'
+                                    accept={ACCEPTED_IMAGE_TYPES.join(',')}
+                                    name={name}
+                                    ref={ref}
+                                    onBlur={onBlur}
+                                    onChange={handleFileChange}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                {previewUrl && (
+                    <div className='mt-4 max-w-xs rounded border'>
+                        <img src={previewUrl} alt='' className='' />
+                    </div>
+                )}
 
                 <div className='space-y-2'>
                     <FormLabel htmlFor='tags'>Tags</FormLabel>
