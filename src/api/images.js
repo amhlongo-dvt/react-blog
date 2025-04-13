@@ -1,4 +1,6 @@
 export const createImage = async (token, image) => {
+    console.log(image)
+
     const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/images?`, {
         method: 'POST',
         headers: {
