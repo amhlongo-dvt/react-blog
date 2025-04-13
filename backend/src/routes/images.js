@@ -1,8 +1,8 @@
 import { requireAuth } from '../middleware/jwt.js'
-import { createImage } from '../services/images.js'
+import { createImage, getImageById } from '../services/images.js'
 
-export function postsRoutes(app) {
-  app.post('/api/v1/posts', requireAuth, async (req, res) => {
+export function imagesRoutes(app) {
+  app.post('/api/v1/images', requireAuth, async (req, res) => {
     try {
       const { type, data } = req.body
 
@@ -18,11 +18,44 @@ export function postsRoutes(app) {
           .json({ error: 'Image too large for base64 encoding' })
       }
 
-      const post = await createImage(req.auth.sub, req.body)
-      return res.json(post)
+      const image = await createImage(req.auth.sub, req.body)
+      return res.json({
+        _id: image._id,
+        name: image.name,
+        type: image.type,
+        data: image.data,
+        alt: image.alt,
+        uploader: image.uploader,
+        createdAt: image.createdAt,
+        updatedAt: image.updatedAt,
+      })
     } catch (err) {
       console.error('error creating post', err)
       return res.status(500).end()
+    }
+  })
+
+  app.get('/api/v1/images/:id', async (req, res) => {
+    try {
+      const image = await getImageById(req.params.id)
+
+      if (!image) {
+        return res.status(404).json({ error: 'Image not found' })
+      }
+
+      return res.json({
+        _id: image._id,
+        name: image.name,
+        type: image.type,
+        data: image.data,
+        alt: image.alt,
+        uploader: image.uploader,
+        createdAt: image.createdAt,
+        updatedAt: image.updatedAt,
+      })
+    } catch (err) {
+      console.error('Error retrieving image:', err)
+      return res.status(500).json({ error: 'Failed to retrieve image' })
     }
   })
 }
