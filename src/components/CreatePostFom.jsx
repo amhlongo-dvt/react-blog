@@ -31,6 +31,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { toast } from 'sonner'
 
 const ACCEPTED_IMAGE_TYPES = [
     'image/jpeg',
@@ -84,6 +85,7 @@ export function CreatePostForm({
 
     const handleFileChange = (event) => {
         const file = event.target.files?.[0]
+
         if (previewUrl) {
             URL.revokeObjectURL(previewUrl)
             setPreviewUrl(null)
@@ -91,6 +93,7 @@ export function CreatePostForm({
 
         if (file) {
             setPreviewUrl(URL.createObjectURL(file))
+            toast('Image uploaded')
         } else {
             console.log('file not uploaded')
         }
