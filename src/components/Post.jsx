@@ -13,6 +13,9 @@ import {
     CardTitle,
 } from '@/components/ui/card'
 import { Button } from './ui/button'
+import { getImageById } from '../api/images'
+import { useQuery } from '@tanstack/react-query'
+import { base64ToDataUrl } from '../lib/utils'
 
 export function Post({
     title,
@@ -21,6 +24,7 @@ export function Post({
     _id,
     createdAt,
     tags,
+    featuredImageId,
     setTags,
 }) {
     const formatDate = () => {
@@ -40,60 +44,79 @@ export function Post({
             [tag]: !prev[tag],
         }))
     }
+    let imageUrl = ''
+    const placeholder = 'https://placehold.co/600x400/000000/FFFFFF/png'
+
+    if (featuredImageId) {
+        const imageQuery = useQuery({
+            queryKey: ['image', featuredImageId],
+            queryFn: () => getImageById(featuredImageId),
+        })
+        const image = imageQuery.data ?? ''
+        console.log(image)
+        imageUrl = base64ToDataUrl(image.data, image.type)
+    }
 
     return (
         <Card
-            className='h-full w-full p-4'
+            className='h-full w-full flex-row justify-start p-4'
             //  className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'
         >
-            <CardTitle className=''>
-                <h3 className='post__title font-bold'>{title}</h3>
-            </CardTitle>
-
-            {/* <div className='overflow-hidden pt-2'> */}
-            <CardDescription
-                className='line-clamp-2 text-sm'
-                dangerouslySetInnerHTML={{ __html: contents }}
+            <img
+                src={imageUrl ? imageUrl : placeholder}
+                alt=''
+                className='h-32 w-32 rounded-md'
             />
-            {/* </div> */}
-            <CardContent className='flex gap-0.5'>
-                {tags.map((tag) => (
-                    <Badge
-                        key={tag}
-                        className={`hover:bg-accent-foreground hover:text-accent cursor-pointer`}
-                        variant={`${isTagEnabled[tag] ? '' : 'outline'}`}
-                        onClick={() => {
-                            if (isTagEnabled[tag]) {
-                                setTags('')
-                                toggleTag(tag)
-                                console.log(`tag:${tag} clicked`)
-                            } else {
-                                setTags(tag)
-                                setIsTagEnabled(true)
-                                toggleTag(tag)
-                            }
-                        }}
-                    >
-                        {tag}
-                    </Badge>
-                ))}
-            </CardContent>
-            <CardFooter className='flex items-center justify-between'>
-                <div>
-                    <p className='post__author text text--italic text-sm font-bold text-gray-900'>
-                        <User id={author} />
-                    </p>
-                    <p className='text-xs text-gray-500'>{formatDate()}</p>
-                </div>
-                <Button asChild size={'sm'}>
-                    <Link
-                        to={`/posts/${_id}`}
-                        // className='cursor-pointer rounded-sm bg-gray-800 px-4 py-1 text-base font-medium text-gray-50 hover:bg-gray-600'
-                    >
-                        <h3 className='post__cta'>Read</h3>
-                    </Link>
-                </Button>
-            </CardFooter>
+            <div className='flex w-full flex-col justify-between'>
+                <CardTitle className=''>
+                    <h3 className='post__title font-bold'>{title}</h3>
+                </CardTitle>
+
+                {/* <div className='overflow-hidden pt-2'> */}
+                <CardDescription
+                    className='line-clamp-1 text-sm'
+                    dangerouslySetInnerHTML={{ __html: contents }}
+                />
+                {/* </div> */}
+                <CardContent className='flex gap-0.5'>
+                    {tags.map((tag) => (
+                        <Badge
+                            key={tag}
+                            className={`hover:bg-accent-foreground hover:text-accent cursor-pointer`}
+                            variant={`${isTagEnabled[tag] ? '' : 'outline'}`}
+                            onClick={() => {
+                                if (isTagEnabled[tag]) {
+                                    setTags('')
+                                    toggleTag(tag)
+                                    console.log(`tag:${tag} clicked`)
+                                } else {
+                                    setTags(tag)
+                                    setIsTagEnabled(true)
+                                    toggleTag(tag)
+                                }
+                            }}
+                        >
+                            {tag}
+                        </Badge>
+                    ))}
+                </CardContent>
+                <CardFooter className='flex items-center justify-between'>
+                    <div>
+                        <p className='post__author text text--italic text-sm font-bold text-gray-900'>
+                            <User id={author} />
+                        </p>
+                        <p className='text-xs text-gray-500'>{formatDate()}</p>
+                    </div>
+                    <Button asChild size={'sm'}>
+                        <Link
+                            to={`/posts/${_id}`}
+                            // className='cursor-pointer rounded-sm bg-gray-800 px-4 py-1 text-base font-medium text-gray-50 hover:bg-gray-600'
+                        >
+                            <h3 className='post__cta'>Read</h3>
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </div>
         </Card>
     )
 }
@@ -104,6 +127,7 @@ Post.propTypes = {
     author: PropTypes.string,
     _id: PropTypes.string.isRequired,
     createdAt: PropTypes.string,
+    featuredImageId: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     setTags: PropTypes.func,
 }

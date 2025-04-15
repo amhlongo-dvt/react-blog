@@ -189,6 +189,10 @@ export function CreatePostForm({
             setTags([])
             setContents('')
             setIsModalOpen(false)
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl)
+            }
+            setPreviewUrl(null)
             queryClient.invalidateQueries({ queryKey: ['posts'] })
         },
         onError: (error) => {

@@ -22,3 +22,7 @@ export const fileToBase64 = (file) => {
         reader.onerror = (error) => reject(error)
     })
 }
+
+export const base64ToDataUrl = (base64, mimeType = 'image/png') => {
+    return `data:${mimeType};base64,${base64}`
+}
