@@ -13,7 +13,7 @@ export function PostList({
     console.log(posts)
 
     return (
-        <div className='mt-6 flex min-h-screen w-full flex-col gap-4 px-4 md:flex-row'>
+        <div className='mt-6 flex min-h-screen w-full flex-col gap-2 px-4 md:flex-row'>
             {/* Scrollable posts section */}
             <div className='no-scrollbar h-screen w-full overflow-y-auto md:w-3/5'>
                 {posts.map((post, index) => (

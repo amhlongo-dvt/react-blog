@@ -47,7 +47,6 @@ export function Blog() {
                 />
             </div>
 
-            {/* PostList occupies the rest of the space and no scrolling is enabled */}
             <div className='flex-1 overflow-hidden'>
                 <PostList
                     posts={posts}
