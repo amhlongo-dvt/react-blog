@@ -23,6 +23,7 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { DialogDescription } from '../components/ui/dialog'
 
 // Form validation schema
 const formSchema = z.object({
@@ -64,17 +65,20 @@ export function Signup({ isSignUpModalOpen, setIsSignUpModalOpen }) {
 
     return (
         <Dialog open={isSignUpModalOpen} onOpenChange={setIsSignUpModalOpen}>
-            <DialogContent className='sm:max-w-md'>
-                <DialogHeader>
-                    <DialogTitle className='text-center text-2xl font-bold'>
-                        Welcome To Syntax
+            <DialogContent className='max-w-sm'>
+                <DialogHeader className='pb-4'>
+                    <DialogTitle className='text-2xl font-bold'>
+                        Sign Up
                     </DialogTitle>
+                    <DialogDescription>
+                        Enter your email below to sign up to your account
+                    </DialogDescription>
                 </DialogHeader>
 
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className='space-y-4'
+                        className='space-y-6'
                     >
                         <FormField
                             control={form.control}

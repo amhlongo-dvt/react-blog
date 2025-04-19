@@ -56,6 +56,7 @@ export function Header({
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <ModeToggle />
                 </div>
 
                 {/* Floating Action Button */}
