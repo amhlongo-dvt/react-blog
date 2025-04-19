@@ -38,10 +38,7 @@ export function Header({
                     {/* Fixed Dropdown Menu */}
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            {/* Simple button instead of asChild for compatibility */}
-                            <button className='flex h-8 w-8 items-center justify-center rounded-full bg-gray-300'>
-                                <User id={sub} oneLetter />
-                            </button>
+                            <User id={sub} oneLetter />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align='end'>
                             <div className='px-2 py-1.5'>
