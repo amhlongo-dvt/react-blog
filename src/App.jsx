@@ -9,6 +9,7 @@ import './App.css'
 import { ViewPost } from './pages/ViewPost.jsx'
 import { ThemeProvider } from './contexts/theme-provider.jsx'
 import { Toaster } from './components/ui/sonner.jsx'
+import { SidebarProvider } from './components/ui/sidebar.jsx'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -36,8 +37,10 @@ export function App() {
         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
             <QueryClientProvider client={queryClient}>
                 <AuthContextProvider>
-                    <RouterProvider router={router} />
-                    <Toaster />
+                    <SidebarProvider>
+                        <RouterProvider router={router} />
+                        <Toaster />
+                    </SidebarProvider>
                 </AuthContextProvider>
             </QueryClientProvider>
         </ThemeProvider>
