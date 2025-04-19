@@ -31,7 +31,7 @@ const SIDEBAR_WIDTH_MOBILE = '18rem'
 const SIDEBAR_WIDTH_ICON = '3rem'
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b'
 
-const SidebarContext = null
+const SidebarContext = React.createContext(null)
 
 function useSidebar() {
     const context = React.useContext(SidebarContext)
@@ -762,6 +762,40 @@ SidebarMenuButton.propTypes = {
     variant: PropTypes.oneOf(['default', 'outline']),
     size: PropTypes.oneOf(['default', 'sm', 'lg']),
     tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    className: PropTypes.string,
+}
+
+SidebarMenuAction.propTypes = {
+    className: PropTypes.string,
+    asChild: PropTypes.bool,
+    showOnHover: PropTypes.bool,
+}
+
+SidebarMenuBadge.propTypes = {
+    className: PropTypes.string,
+}
+
+SidebarMenuSkeleton.propTypes = {
+    className: PropTypes.string,
+    showIcon: PropTypes.bool,
+}
+
+SidebarMenuSub.propTypes = {
+    className: PropTypes.string,
+}
+
+SidebarMenuSubItem.propTypes = {
+    className: PropTypes.string,
+}
+
+SidebarMenuSubItem.propTypes = {
+    className: PropTypes.string,
+}
+
+SidebarMenuSubButton.propTypes = {
+    asChild: PropTypes.bool,
+    size: PropTypes.oneOf(['sm', 'md']),
+    isActive: PropTypes.bool,
     className: PropTypes.string,
 }
 

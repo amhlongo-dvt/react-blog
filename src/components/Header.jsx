@@ -26,11 +26,13 @@ export function Header({
         const { sub } = jwtDecode(token)
 
         return (
-            <header className='flex items-center justify-between pt-4'>
+            <header className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
                     <CommandIcon className='h-5 w-5' />
                     <h1 className='text-xl font-bold'>Syntax</h1>
                 </div>
+
+                {/* <SidebarTrigger/> */}
 
                 <div className='flex items-center gap-2'>
                     {/* Fixed Dropdown Menu */}
@@ -62,7 +64,7 @@ export function Header({
                 {/* Floating Action Button */}
                 <Button
                     onClick={() => setIsModalOpen(true)}
-                    className='fixed right-6 bottom-6 z-50 h-12 w-12 rounded-full bg-amber-700 p-0 shadow-lg hover:bg-amber-800 md:hidden'
+                    className='bg-primary fixed right-6 bottom-6 z-50 h-12 w-12 rounded-full p-0 shadow-lg hover:bg-purple-700 md:hidden'
                     size='icon'
                 >
                     <PlusIcon className='h-12 w-12' />
@@ -73,7 +75,7 @@ export function Header({
     }
 
     return (
-        <header className='flex items-center justify-between pt-4'>
+        <header className='flex items-center justify-between'>
             <div className='flex items-center gap-2'>
                 <CommandIcon className='h-5 w-5' />
                 <h1 className='text-xl font-bold'>Syntax</h1>

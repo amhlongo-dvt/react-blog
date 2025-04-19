@@ -121,11 +121,10 @@ export function Signup({ isSignUpModalOpen, setIsSignUpModalOpen }) {
                             </p>
                         )}
 
-                        <div className='flex justify-end pt-2'>
+                        <div className='flex justify-end pt-6'>
                             <Button
                                 type='submit'
                                 disabled={signupMutation.isPending}
-                                className='w-full sm:w-auto'
                             >
                                 {signupMutation.isPending
                                     ? 'Signing up...'

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { Post } from './Post'
 import { motion } from 'framer-motion'
 import { CreatePostForm } from './CreatePostFom'
+import { Card } from './ui/card'
 
 export function PostList({
     posts = [],
@@ -13,9 +14,9 @@ export function PostList({
     console.log(posts)
 
     return (
-        <div className='mt-6 flex min-h-screen w-full flex-col gap-2 px-4 md:flex-row'>
+        <div className='mb-10 flex min-h-screen w-full flex-col gap-2 px-4 md:flex-row'>
             {/* Scrollable posts section */}
-            <div className='no-scrollbar h-screen w-full overflow-y-auto md:w-3/5'>
+            <div className='no-scrollbar h-screen w-full overflow-y-auto pb-6 md:w-3/5'>
                 {posts.map((post, index) => (
                     <motion.div
                         key={post._id}
@@ -31,13 +32,13 @@ export function PostList({
 
             {/* Sticky form section */}
             <div className='relative hidden w-full md:block md:w-2/5'>
-                <div className='sticky max-h-[calc(100vh-2rem)] overflow-y-auto'>
+                <Card className='max-h-[calc(100vh-2rem)] overflow-y-auto p-8 dark:border-0'>
                     <CreatePostForm
                         setIsLoginModalOpen={setIsLoginModalOpen}
                         setIsSignUpModalOpen={setIsSignUpModalOpen}
                         setIsModalOpen={setIsModalOpen}
                     />
-                </div>
+                </Card>
             </div>
         </div>
     )

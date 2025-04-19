@@ -58,7 +58,7 @@ export function Post({
 
     return (
         <Card
-            className='h-full w-full py-4'
+            className='h-full w-full py-4 dark:border-0'
             //  className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'
         >
             <Link
@@ -77,7 +77,7 @@ export function Post({
 
                     {/* <div className='overflow-hidden pt-2'> */}
                     <CardDescription
-                        className='line-clamp-1 text-sm'
+                        className='line-clamp-1 text-sm lg:line-clamp-2'
                         dangerouslySetInnerHTML={{ __html: contents }}
                     />
                     {/* </div> */}

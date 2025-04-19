@@ -45,7 +45,7 @@ const ACCEPTED_IMAGE_TYPES = [
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required'),
-    featuredImageId: z.string().min(1, 'Picture is required'),
+    featuredImageId: z.string().min(1, 'Picture is required').nullable(),
 })
 
 export function CreatePostForm({
@@ -68,7 +68,7 @@ export function CreatePostForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: '',
-            featuredImageId: null,
+            featuredImageId: '',
         },
     })
 
@@ -241,7 +241,7 @@ export function CreatePostForm({
     if (!token) {
         if (!token) {
             return (
-                <Card className='mx-auto w-full'>
+                <Card className='mx-auto w-full border-0 shadow-none'>
                     <CardHeader className='flex flex-col items-center'>
                         <div className='bg-muted mb-4 flex h-12 w-12 items-center justify-center rounded-full'>
                             <LockIcon className='text-primary h-6 w-6' />
@@ -401,7 +401,7 @@ export function CreatePostForm({
                             onChange={setContents}
                             modules={modules}
                             placeholder='Write your blog content here...'
-                            className='mb-10 h-[200px]'
+                            className='text-foreground placeholder:text-secondary-foreground mb-10 h-[200px]'
                         />
                     </div>
                     {/* {!contents && (

@@ -1,6 +1,6 @@
 /* Fixes for Quill content */
 .ql-editor {
-    padding: 0;
+    /* padding: 0; */
     font-family: inherit;
   }
   

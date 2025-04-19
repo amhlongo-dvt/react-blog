@@ -122,11 +122,10 @@ export function Login({ isLoginModalOpen, setIsLoginModalOpen }) {
                             </p>
                         )}
 
-                        <div className='flex justify-end pt-2'>
+                        <div className='flex justify-end pt-6'>
                             <Button
                                 type='submit'
                                 disabled={loginMutation.isPending}
-                                className='w-full sm:w-auto'
                             >
                                 {loginMutation.isPending
                                     ? 'Logging in...'

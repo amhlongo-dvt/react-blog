@@ -27,7 +27,7 @@ export function Blog() {
     return (
         <div className='blog-container flex h-screen flex-col overflow-hidden'>
             {/* Header area stays fixed at the top */}
-            <div className='header-container sticky top-0 flex-shrink-0 bg-gray-100 px-4'>
+            <div className='header-container bg-background sticky top-0 flex-shrink-0 px-4 py-4'>
                 <CreatePost
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
@@ -47,7 +47,7 @@ export function Blog() {
                 />
             </div>
 
-            <div className='flex-1 overflow-hidden'>
+            <div className=''>
                 <PostList
                     posts={posts}
                     setTags={(tag) => setTags(tag)}

@@ -13,7 +13,7 @@ import { CreatePostForm } from './CreatePostFom'
 export function CreatePost({ isModalOpen, setIsModalOpen }) {
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-            <DialogContent className='sm:max-w-3xl'>
+            <DialogContent className='no-scollbar h-full overflow-scroll sm:max-w-3xl'>
                 <DialogHeader>
                     <DialogTitle className='text-center text-2xl font-bold'>
                         Create Blog Post
