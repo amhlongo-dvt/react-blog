@@ -19,7 +19,12 @@ export function ViewPost() {
             <Header isPost={true} />
             <div className='flex flex-col items-center'>
                 <div className='view-post-container flex w-full flex-col items-center'>
-                    {post && <HeroSection title={post.title} />}
+                    {post && (
+                        <HeroSection
+                            title={post.title}
+                            featuredImageId={post.featuredImageId}
+                        />
+                    )}
                     {post && <PostContent post={post} />}
                     {!post && (
                         <div className='animate-pulse space-y-4'>
