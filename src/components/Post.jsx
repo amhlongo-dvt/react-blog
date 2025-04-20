@@ -52,15 +52,11 @@ export function Post({
             queryFn: () => getImageById(featuredImageId),
         })
         const image = imageQuery.data ?? ''
-        console.log(image)
         imageUrl = base64ToDataUrl(image.data, image.type)
     }
 
     return (
-        <Card
-            className='h-full w-full py-4 dark:border-0'
-            //  className='flex flex-col justify-between rounded-xl bg-white px-4 shadow-sm'
-        >
+        <Card className='h-full w-full py-4 dark:border-0'>
             <Link
                 to={`/posts/${_id}`}
                 className='flex flex-row justify-start gap-4 px-4'
@@ -74,13 +70,10 @@ export function Post({
                     <CardTitle className=''>
                         <h3 className='post__title font-bold'>{title}</h3>
                     </CardTitle>
-
-                    {/* <div className='overflow-hidden pt-2'> */}
                     <CardDescription
                         className='line-clamp-1 text-sm lg:line-clamp-2'
                         dangerouslySetInnerHTML={{ __html: contents }}
                     />
-                    {/* </div> */}
                     <CardContent className='flex gap-0.5'>
                         {tags.map((tag) => (
                             <Badge
@@ -89,7 +82,9 @@ export function Post({
                                 variant={`${
                                     isTagEnabled[tag] ? '' : 'outline'
                                 }`}
-                                onClick={() => {
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
                                     if (isTagEnabled[tag]) {
                                         setTags('')
                                         toggleTag(tag)

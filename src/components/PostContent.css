@@ -21,3 +21,10 @@
     margin: 1rem 0;
   }
   
+  .view-post-content{
+    padding: 0;
+  }
+
+  .view-post-content h4{
+    margin-top: 2rem;
+  }

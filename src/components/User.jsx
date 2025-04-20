@@ -36,7 +36,7 @@ export function User({ id, oneLetter = false }) {
     if (oneLetter) {
         return (
             <Avatar>
-                <AvatarFallback className='bg-primary text-primary-foreground'>
+                <AvatarFallback className='bg-primary text-primary-foreground h-8'>
                     {username.charAt(0).toUpperCase()}
                 </AvatarFallback>
             </Avatar>

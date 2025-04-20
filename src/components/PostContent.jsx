@@ -4,43 +4,37 @@ import { User } from './User'
 
 import './PostContent.css'
 import PropTypes from 'prop-types'
+import { Badge } from './ui/badge'
 
 export const PostContent = ({ post }) => {
     const sanitizedContent = DOMPurify.sanitize(post.contents)
 
     return (
-        <div className='relative z-20 mx-4 w-full max-w-3xl rounded-lg bg-white p-6 shadow-md'>
-            <div className='mb-6 flex items-center gap-4'>
-                <div className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-300'>
-                    <span className='font-medium text-gray-600'>
-                        <User id={post.author} oneLetter />
-                    </span>
-                </div>
+        <div className='w-full max-w-4xl px-8 py-8'>
+            <div className='mb-2 flex items-center gap-4'>
+                <User id={post.author} oneLetter />
                 <div>
-                    <p className='font-medium text-gray-900'>
+                    <p className='text-sm md:text-base'>
                         <User id={post.author} />
                     </p>
-                    <p className='text-sm text-gray-500'>
+                    <p className='text-sm'>
                         {format(new Date(post.createdAt), 'MMMM d, yyyy')}
                     </p>
                 </div>
             </div>
 
             {post.tags?.length > 0 && (
-                <div className='mb-8 flex flex-wrap gap-2'>
+                <div className='flex gap-2'>
                     {post.tags.map((tag) => (
-                        <span
-                            key={tag}
-                            className='rounded-full bg-gray-200 px-3 py-1 text-sm'
-                        >
+                        <Badge className='md:h-7' key={tag}>
                             {tag}
-                        </span>
+                        </Badge>
                     ))}
                 </div>
             )}
 
             <div
-                className='ql-editor'
+                className='view-post-content mt-6 text-lg md:text-xl'
                 dangerouslySetInnerHTML={{ __html: sanitizedContent }}
             />
         </div>

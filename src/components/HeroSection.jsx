@@ -8,7 +8,7 @@ export const HeroSection = ({ title, featuredImageId }) => {
     }
     return (
         <div
-            className='relative flex h-96 w-full items-center justify-center bg-cover bg-center' // Added items-center
+            className='relative flex h-80 w-full max-w-4xl items-center justify-center bg-cover bg-center lg:h-[512px]'
             style={{
                 backgroundImage: `url("${imageUrl}")`,
                 backgroundSize: 'cover',
