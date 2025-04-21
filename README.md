@@ -129,25 +129,60 @@ Builds the static Storybook site.
 
 ```
 react-blog/
-├─ public/                   # Static assets & index.html
-├─ src/
-│  ├─ components/            # Reusable UI components
-│  ├─ hooks/                 # Custom React hooks
-│  ├─ pages/                 # Route components (Home, Post, About…)
-│  ├─ posts/                 # Markdown or rich-text posts
-│  ├─ styles/                # Tailwind config, globals.css
-│  ├─ theme/                 # next-themes config & utils
-│  ├─ App.jsx                # Root component + Router setup
-│  └─ main.jsx               # Vite entrypoint
-├─ .env                      # Environment variables (create as needed)
-├─ .eslintrc.js
-├─ .prettierrc
-├─ .commitlintrc.js
-├─ .husky/                   # Git hooks
-├─ lint-staged.config.js
-├─ package.json
-└─ vite.config.js
+├── .husky/                  # Git hooks
+│   ├── commit-msg
+│   └── pre-commit
+├── .storybook/              # Storybook configuration
+│   ├── main.js
+│   └── preview.js
+├── backend/                 # Backend logic (API, DB, services)
+│   ├── __tests__/           # Backend tests
+│   ├── db/                  # Database config or models
+│   ├── middleware/          # Express middleware
+│   ├── routes/              # API routes
+│   ├── services/            # Business logic
+│   ├── test/                # Additional backend tests
+│   ├── app.js
+│   ├── example.js
+│   └── index.js
+├── public/                  # Static assets
+│   ├── pic1.jpg
+│   └── vite.svg
+├── src/                     # Frontend source
+│   ├── api/                 # API utilities
+│   ├── assets/              # Images, fonts, etc.
+│   ├── components/          # Reusable UI components
+│   ├── contexts/            # React context providers
+│   ├── hooks/               # Custom React hooks
+│   ├── lib/                 # Utility functions/libraries
+│   ├── pages/               # Page components
+│   ├── stories/             # Storybook stories
+│   ├── App.css
+│   ├── App.jsx
+│   └── main.jsx
+├── vitest.setup.ts         # Vitest setup
+├── vitest.workspace.js     # Vitest config for workspaces
+├── components.json          # Custom config (possibly for Storybook or dynamic imports)
+├── index.html               # App HTML template
+├── jsconfig.json            # JS/TS project config
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+├── vite.config.js           # Vite config
+├── .env
+├── .commitlintrc.json
+├── .eslintrc.json
+├── .eslintignore
+├── .prettierrc.json
+├── .prettierignore
+├── .gitignore
+├── README.md
+├── jest.config.json
+├── nodemon.json
 ```
+
 
 ---
 
